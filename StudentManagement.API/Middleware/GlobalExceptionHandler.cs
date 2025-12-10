@@ -29,14 +29,9 @@ public class GlobalExceptionHandler
 
     private static Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        _logger.LogError(exception, "An unhandled exception occurred");
-        
-        Console.WriteLine($"===== ERROR DETAILS =====");
-        Console.WriteLine($"ERROR: {exception.Message}");
-        Console.WriteLine($"TYPE: {exception.GetType().Name}");
-        Console.WriteLine($"========================");
 
         context.Response.ContentType = "application/json";
+
 
         if (exception is InvalidOperationException)
         {
@@ -49,6 +44,26 @@ public class GlobalExceptionHandler
             };
 
             return context.Response.WriteAsJsonAsync(badRequestResponse);
+        }
+
+        if (exception is KeyNotFoundException)
+        {
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            return context.Response.WriteAsJsonAsync(new
+            {
+                success = false,
+                message = exception.Message
+            });
+        }
+
+        if (exception is ArgumentException)
+        {
+            context.Response.StatusCode = StatusCodes.Status409Conflict;
+            return context.Response.WriteAsJsonAsync(new
+            {
+                success = false,
+                message = exception.Message
+            });
         }
 
         context.Response.StatusCode = StatusCodes.Status500InternalServerError;

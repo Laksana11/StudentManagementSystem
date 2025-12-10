@@ -25,7 +25,12 @@ public class StudentService : IStudentService
     public async Task<StudentDto?> GetStudentByIdAsync(int id)
     {
         var student = await _repository.GetByIdAsync(id);
-        return student == null ? null : _mapper.Map<StudentDto>(student);
+
+        if(student == null)
+        {
+            throw new KeyNotFoundException("Student not found");
+        }
+        return _mapper.Map<StudentDto>(student);
     }
 
     public async Task<StudentDto> CreateStudentAsync(CreateStudentRequest request)
@@ -33,7 +38,7 @@ public class StudentService : IStudentService
        
         if (await _repository.EmailExistsAsync(request.Email))
         {
-            throw new InvalidOperationException("Email already exists");
+            throw new ArgumentException("Email already exists");
         }
 
         var student = _mapper.Map<Student>(request);
@@ -48,12 +53,12 @@ public class StudentService : IStudentService
         var student = await _repository.GetByIdAsync(id);
         if (student == null)
         {
-            return null;
+            throw new KeyNotFoundException("Student not found");
         }
 
         if (await _repository.EmailExistsExcludingIdAsync(request.Email, id))
         {
-            throw new InvalidOperationException("Email already exists");
+            throw new ArgumentException("Email already exists");
         }
 
         _mapper.Map(request, student);

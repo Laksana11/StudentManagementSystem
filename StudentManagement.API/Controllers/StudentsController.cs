@@ -27,11 +27,6 @@ public class StudentsController : ControllerBase
     {
         var student = await _studentService.GetStudentByIdAsync(id);
         
-        if (student == null)
-        {
-            return NotFound(new { success = false, message = "Student not found" });
-        }
-
         return Ok(student);
     }
 
@@ -39,10 +34,6 @@ public class StudentsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<StudentDto>> CreateStudent([FromBody] CreateStudentRequest request)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(new { success = false, message = "Validation failed", errors = ModelState });
-        }
 
         var student = await _studentService.CreateStudentAsync(request);
         return CreatedAtAction(nameof(GetStudent), new { id = student.Id }, student);
@@ -52,18 +43,8 @@ public class StudentsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult<StudentDto>> UpdateStudent(int id, [FromBody] UpdateStudentRequest request)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(new { success = false, message = "Validation failed", errors = ModelState });
-        }
-
         var student = await _studentService.UpdateStudentAsync(id, request);
         
-        if (student == null)
-        {
-            return NotFound(new { success = false, message = "Student not found" });
-        }
-
         return Ok(student);
     }
 
@@ -72,12 +53,7 @@ public class StudentsController : ControllerBase
     public async Task<ActionResult> DeleteStudent(int id)
     {
         var result = await _studentService.DeleteStudentAsync(id);
-        
-        if (!result)
-        {
-            return NotFound(new { success = false, message = "Student not found" });
-        }
-
+       
         return Ok(new { success = true, message = "Student deleted successfully" });
     }
 }
