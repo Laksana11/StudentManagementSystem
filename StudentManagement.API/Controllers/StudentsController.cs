@@ -36,7 +36,7 @@ public class StudentsController : ControllerBase
     {
 
         var student = await _studentService.CreateStudentAsync(request);
-        return CreatedAtAction(nameof(GetStudent), new { id = student.Id }, student);
+        return Ok(student);
     }
 
 
