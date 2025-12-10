@@ -1,13 +1,11 @@
--- 1. Create Database and Table
 USE StudentDB;
 GO
 
--- Drop existing objects if they exist
+
 IF OBJECT_ID('dbo.Students', 'U') IS NOT NULL
     DROP TABLE dbo.Students;
 GO
 
--- Create Students Table
 CREATE TABLE Students (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
@@ -17,7 +15,7 @@ CREATE TABLE Students (
 );
 GO
 
--- 2. Get All Students (with optional search)
+
 CREATE OR ALTER PROCEDURE sp_GetAllStudents
     @search NVARCHAR(100) = NULL
 AS
@@ -41,7 +39,7 @@ BEGIN
 END
 GO
 
--- 3. Get Student By ID
+
 CREATE OR ALTER PROCEDURE sp_GetStudentById
     @id INT
 AS
@@ -54,7 +52,6 @@ BEGIN
 END
 GO
 
--- 4. Create Student
 CREATE OR ALTER PROCEDURE sp_CreateStudent
     @name NVARCHAR(100),
     @email NVARCHAR(100),
@@ -73,7 +70,7 @@ BEGIN
 END
 GO
 
--- 5. Update Student
+
 CREATE OR ALTER PROCEDURE sp_UpdateStudent
     @id INT,
     @name NVARCHAR(100),
@@ -93,7 +90,6 @@ BEGIN
 END
 GO
 
--- 6. Delete Student
 CREATE OR ALTER PROCEDURE sp_DeleteStudent
     @id INT
 AS
@@ -106,7 +102,6 @@ BEGIN
 END
 GO
 
--- 7. Check if Email Exists
 CREATE OR ALTER PROCEDURE sp_EmailExists
     @email NVARCHAR(100)
 AS
@@ -119,7 +114,6 @@ BEGIN
 END
 GO
 
--- 8. Check if Email Exists (excluding specific ID)
 CREATE OR ALTER PROCEDURE sp_EmailExistsExcludingId
     @email NVARCHAR(100),
     @id INT

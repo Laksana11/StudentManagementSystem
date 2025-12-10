@@ -54,13 +54,12 @@ function StudentList({ students, loading, searchTerm, onSearchChange, onEdit, on
                 </Button>
             </Box>
 
-            {/* Loading State */}
             {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', py: 8 }}>
                     <CircularProgress size={60} />
                 </Box>
             ) : students.length === 0 ? (
-                /* Empty State */
+        
                 <Paper
                     elevation={0}
                     sx={{
@@ -85,7 +84,7 @@ function StudentList({ students, loading, searchTerm, onSearchChange, onEdit, on
                     )}
                 </Paper>
             ) : (
-                /* Students Table */
+           
                 <TableContainer component={Paper} elevation={2}>
                     <Table>
                         <TableHead>

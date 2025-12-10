@@ -30,7 +30,7 @@ public class StudentService : IStudentService
 
     public async Task<StudentDto> CreateStudentAsync(CreateStudentRequest request)
     {
-        // Check for duplicate email
+       
         if (await _repository.EmailExistsAsync(request.Email))
         {
             throw new InvalidOperationException("Email already exists");
