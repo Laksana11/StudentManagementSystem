@@ -50,7 +50,7 @@ function StudentList({ students, loading, searchTerm, onSearchChange, onEdit, on
                     size="large"
                     sx={{ ml: 2 }}
                 >
-                    Add Student
+                    Add Students
                 </Button>
             </Box>
 
