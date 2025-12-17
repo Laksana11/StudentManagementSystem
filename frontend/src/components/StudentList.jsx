@@ -79,7 +79,7 @@ function StudentList({ students, loading, searchTerm, onSearchChange, onEdit, on
                     </Typography>
                     {!searchTerm && (
                         <Button variant="contained" startIcon={<AddIcon />} onClick={onAddNew}>
-                            Add Your First Student Here
+                            Add Your First Student 
                         </Button>
                     )}
                 </Paper>
